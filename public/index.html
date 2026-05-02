@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Vedic Reading Desk</title>
+  <meta name="description" content="Anonymous Vedic astrology booking and consultation site." />
+  <style>
+    :root{
+      --bg:#06070a; --panel:rgba(14,16,22,.82); --line:rgba(255,255,255,.09);
+      --text:#f5efe4; --muted:rgba(245,239,228,.72); --gold:#d8b46d; --gold2:#f2d18a;
+      --good:#b9f8c5; --bad:#ffb1b1;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:
+      radial-gradient(circle at top, rgba(216,180,109,.18), transparent 26%),
+      linear-gradient(180deg, #050608 0%, #0b0d12 52%, #090909 100%);
+      color:var(--text); font-family: Inter, system-ui, -apple-system, Segoe UI, sans-serif;
+    }
+    body:before, body:after{content:""; position:fixed; inset:auto; width:360px; height:360px; border-radius:50%; filter:blur(110px); pointer-events:none; z-index:0}
+    body:before{left:-120px; top:-120px; background:rgba(216,180,109,.12)}
+    body:after{right:-120px; bottom:-120px; background:rgba(255,255,255,.06)}
+    .wrap{position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:28px 18px 54px}
+    .pill{display:inline-flex; align-items:center; gap:8px; border:1px solid rgba(216,180,109,.3); background:rgba(216,180,109,.08); color:var(--gold); padding:10px 14px; border-radius:999px; text-transform:uppercase; letter-spacing:.08em; font-size:12px}
+    h1{margin:18px 0 0; font-size:clamp(2.5rem,7vw,5.2rem); line-height:.95; letter-spacing:-.06em; max-width:900px}
+    .lead{max-width:760px; color:var(--muted); line-height:1.7; margin:18px 0 28px; font-size:1.02rem}
+    .grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:16px; margin:20px 0 22px}
+    .card,.form{border:1px solid var(--line); background:var(--panel); backdrop-filter:blur(18px); border-radius:24px; box-shadow:0 22px 70px rgba(0,0,0,.38)}
+    .card{padding:20px}
+    .label{color:var(--gold); text-transform:uppercase; letter-spacing:.08em; font-size:12px; margin-bottom:14px}
+    .row{display:flex; justify-content:space-between; gap:16px; padding:10px 0; border-bottom:1px solid rgba(255,255,255,.08)}
+    .row:last-child{border-bottom:none}
+    .section{display:grid; gap:10px; margin-bottom:18px}
+    .form{padding:22px}
+    .form h2{margin:0; font-size:1.9rem}
+    .sub{color:var(--muted); margin-top:6px; line-height:1.6}
+    .cols{display:grid; gap:14px; grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+    .field{display:grid; gap:8px; font-size:14px; color:rgba(245,239,228,.88)}
+    input,select,textarea{width:100%; border-radius:16px; border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.04); color:var(--text); padding:14px 15px; font-size:15px; outline:none}
+    textarea{min-height:128px; resize:vertical}
+    .plan-grid,.topic-grid{display:grid; gap:12px}
+    .plan-grid{grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}
+    .topic-grid{display:flex; flex-wrap:wrap}
+    .plan,.topic{border-radius:18px; border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.03); color:var(--text); padding:14px; text-align:left; cursor:pointer}
+    .plan strong,.plan span,.plan em{display:block}
+    .plan span,.muted{color:var(--muted)}
+    .plan em{margin-top:10px; color:var(--gold); font-style:normal; font-weight:800}
+    .topic{border-radius:999px; padding:10px 14px}
+    .active{border-color:var(--gold)!important; background:rgba(216,180,109,.16)!important; transform:translateY(-1px)}
+    .pay{display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; border:1px solid rgba(216,180,109,.28); background:linear-gradient(135deg, rgba(216,180,109,.12), rgba(255,255,255,.03)); border-radius:20px; padding:16px}
+    .upi{font-size:1.08rem; font-weight:800; margin-top:6px}
+    .amount{font-size:1.08rem; color:var(--gold); font-weight:800}
+    .btn{width:100%; border:none; border-radius:18px; padding:16px 18px; background:linear-gradient(135deg, var(--gold), var(--gold2)); color:#101010; font-size:16px; font-weight:900; cursor:pointer}
+    .notice{border-radius:18px; padding:16px; border:1px solid rgba(255,255,255,.08); line-height:1.6}
+    .ok{background:rgba(24,88,42,.34); color:var(--good)}
+    .err{background:rgba(96,24,24,.34); color:var(--bad)}
+    .small{font-size:13px; color:var(--muted)}
+    .footer{margin-top:18px; text-align:center; color:var(--muted); font-size:13px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="pill">Private Vedic consultations</div>
+    <h1>Anonymous premium astrology booking</h1>
+    <p class="lead">Readings are delivered through Reddit DM. The site keeps the flow simple: choose a plan, add birth details, pay by UPI, enter the UTR, then submit. No personal bio, no fake claims, no extra drama.</p>
+
+    <div class="grid">
+      <div class="card">
+        <div class="label">Pricing</div>
+        <div class="row"><span>Full chart reading</span><strong>₹1500</strong></div>
+        <div class="row"><span>Single topic</span><strong>₹500</strong></div>
+        <div class="row"><span>Two topics</span><strong>₹1000</strong></div>
+      </div>
+      <div class="card">
+        <div class="label">Flow</div>
+        <div class="row"><span>Reddit username required</span><span>Yes</span></div>
+        <div class="row"><span>Birth details captured</span><span>Yes</span></div>
+        <div class="row"><span>Payment proof / UTR</span><span>Yes</span></div>
+      </div>
+      <div class="card">
+        <div class="label">Status</div>
+        <div class="row"><span>Anonymous branding</span><span>Yes</span></div>
+        <div class="row"><span>Booking ID</span><span>Auto</span></div>
+        <div class="row"><span>Sheet-ready payload</span><span>Yes</span></div>
+      </div>
+    </div>
+
+    <div class="form">
+      <h2>Book a reading</h2>
+      <div class="sub">Complete the form, pay by UPI, enter the transaction reference, and submit.</div>
+      <form id="bookingForm">
+        <div class="cols" style="margin-top:16px">
+          <label class="field">Reddit username *<input name="reddit" placeholder="u/yourname" required></label>
+          <label class="field">Name<input name="name" placeholder="Optional"></label>
+        </div>
+        <div class="cols" style="margin-top:14px">
+          <label class="field">Birth date *<input name="birthDate" type="date" required></label>
+          <label class="field">Exact birth time *<input name="birthTime" type="time" required></label>
+        </div>
+        <div class="cols" style="margin-top:14px">
+          <label class="field">Birth place *<input name="birthPlace" placeholder="City, state, country" required></label>
+          <label class="field">Gender<select name="gender"><option>Prefer not to say</option><option>Male</option><option>Female</option><option>Other</option></select></label>
+        </div>
+
+        <div class="section" style="margin-top:16px">
+          <div class="field">Plan</div>
+          <div class="plan-grid" id="planGrid"></div>
+        </div>
+
+        <div class="section">
+          <div class="field">Topic(s)</div>
+          <div class="topic-grid" id="topicGrid"></div>
+        </div>
+
+        <div class="section">
+          <label class="field">Context / situation<textarea name="context" placeholder="Add the details that matter for analysis."></textarea></label>
+        </div>
+
+        <div class="pay">
+          <div>
+            <div class="label" style="margin-bottom:4px">UPI payment</div>
+            <div class="upi">soumodityapramanik-2@okaxis</div>
+            <div class="small">Bank: Airtel Payments Bank</div>
+          </div>
+          <div class="amount" id="amountText">Amount: ₹1500</div>
+        </div>
+
+        <div class="cols" style="margin-top:14px">
+          <label class="field">UTR / reference ID *<input name="utr" placeholder="Transaction reference" required></label>
+          <label class="field">Extra comments<input name="comments" placeholder="Optional feedback"></label>
+        </div>
+
+        <button class="btn" type="submit" style="margin-top:16px">Submit booking</button>
+        <div id="message" style="margin-top:14px"></div>
+      </form>
+    </div>
+    <div class="footer">Readings are delivered on Reddit DM only.</div>
+  </div>
+
+<script>
+  const GOOGLE_SCRIPT_URL = "PASTE_YOUR_GOOGLE_SCRIPT_URL_HERE";
+  const plans = [
+    { id: 'full', label: 'Full chart reading', price: 1500, note: 'Deep analysis across life areas' },
+    { id: 'topic1', label: 'Single topic', price: 500, note: 'One focused issue' },
+    { id: 'topic2', label: 'Two topics', price: 1000, note: 'Any two focused issues' }
+  ];
+  const topics = ['Full chart reading','Career','Marriage / relationship','Finance / wealth','Family / home','Education','Health / lifestyle','Other'];
+  let selectedPlan = 'full';
+  let selectedTopics = ['Full chart reading'];
+
+  const planGrid = document.getElementById('planGrid');
+  const topicGrid = document.getElementById('topicGrid');
+  const amountText = document.getElementById('amountText');
+  const form = document.getElementById('bookingForm');
+  const message = document.getElementById('message');
+
+  function amountFor(id){ return (plans.find(p => p.id === id) || plans[0]).price; }
+  function updateAmount(){ amountText.textContent = `Amount: ₹${amountFor(selectedPlan)}`; }
+  function renderPlans(){
+    planGrid.innerHTML = plans.map(p => `
+      <button type="button" class="plan ${selectedPlan===p.id?'active':''}" data-plan="${p.id}">
+        <strong>${p.label}</strong>
+        <span>${p.note}</span>
+        <em>₹${p.price}</em>
+      </button>
+    `).join('');
+    planGrid.querySelectorAll('[data-plan]').forEach(btn => btn.onclick = () => { selectedPlan = btn.dataset.plan; renderPlans(); updateAmount(); });
+  }
+  function renderTopics(){
+    topicGrid.innerHTML = topics.map(t => `<button type="button" class="topic ${selectedTopics.includes(t)?'active':''}" data-topic="${t}">${t}</button>`).join('');
+    topicGrid.querySelectorAll('[data-topic]').forEach(btn => btn.onclick = () => {
+      const t = btn.dataset.topic;
+      if (selectedTopics.includes(t)) selectedTopics = selectedTopics.filter(x => x !== t); else selectedTopics.push(t);
+      if (!selectedTopics.length) selectedTopics = ['Other'];
+      renderTopics();
+    });
+  }
+
+  function escapeHtml(str){ return str.replace(/[&<>"]+/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[s])); }
+  function bookingId(){ return 'VRD-' + Date.now().toString().slice(-8); }
+
+  renderPlans();
+  renderTopics();
+  updateAmount();
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    message.innerHTML = '';
+    const fd = new FormData(form);
+    const payload = {
+      bookingId: bookingId(),
+      reddit: String(fd.get('reddit') || '').trim(),
+      name: String(fd.get('name') || '').trim(),
+      birthDate: String(fd.get('birthDate') || '').trim(),
+      birthTime: String(fd.get('birthTime') || '').trim(),
+      gender: String(fd.get('gender') || '').trim(),
+      birthPlace: String(fd.get('birthPlace') || '').trim(),
+      plan: selectedPlan,
+      amount: amountFor(selectedPlan),
+      topics: selectedTopics,
+      context: String(fd.get('context') || '').trim(),
+      utr: String(fd.get('utr') || '').trim(),
+      comments: String(fd.get('comments') || '').trim()
+    };
+    if (!payload.reddit || !payload.birthDate || !payload.birthTime || !payload.birthPlace || !payload.utr) {
+      message.innerHTML = '<div class="notice err">Reddit username, birth date, birth time, birth place, and UTR are required.</div>';
+      return;
+    }
+    try {
+      const res = await fetch(GOOGLE_SCRIPT_URL, {
+        method:'POST',
+        mode:'no-cors',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify(payload)
+      });
+      form.reset();
+      selectedPlan = 'full';
+      selectedTopics = ['Full chart reading'];
+      renderPlans();
+      renderTopics();
+      updateAmount();
+      message.innerHTML = `<div class="notice ok">Booking submitted. Booking ID: <strong>${escapeHtml(payload.bookingId)}</strong>. You can now verify payment and continue on Reddit DM.</div>`;
+    } catch (err) {
+      message.innerHTML = '<div class="notice err">Submission failed. Check the Google Script URL and try again.</div>';
+    }
+  });
+</script>
+</body>
+</html>
