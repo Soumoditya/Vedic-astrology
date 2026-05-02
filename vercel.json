@@ -1,5 +1,9 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "buildCommand": "echo building static site",
-  "outputDirectory": "public"
+  "builds": [
+    { "src": "index.html", "use": "@vercel/static" }
+  ],
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
 }
